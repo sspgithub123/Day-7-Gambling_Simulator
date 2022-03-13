@@ -62,8 +62,40 @@ public class GamblingSimulator {
                 totalMoney = totalMoney + (STAKE - temp);
                 System.out.println("Loosing day " + i + ": Money Lost  is " + totalMoney);
             }
-
         }
+        System.out.println(" ");
+    }
+
+    //UC5
+    public static void eachMonth(){
+        int Stake = STAKE;
+        int month = 1;
+
+        while (month<=1) {
+            int day = 1;
+            System.out.println("Month " + month);
+
+            while (day <= 30) {
+                Stake = STAKE;
+
+                int rand = (int) Math.floor(Math.random() * 10) % 2;
+                if (rand == BET) {
+                    Stake = STAKE + 1;
+                } else {
+                    Stake = STAKE - 1;
+                }
+
+                if (Stake < STAKE) {
+                    System.out.println("Day " + day + " lost by " + (STAKE - Stake) + " $ ");
+                } else {
+                    System.out.println("Day " + day + " won by " + (Stake - STAKE) + " $ ");
+                }
+                day++;
+            }
+            month++;
+            System.out.println();
+        }
+
     }
 
     public static void main(String[] args) {
@@ -73,5 +105,6 @@ public class GamblingSimulator {
         checkWinOrLoose();
         wonOrLost50Percent();
         twentyDays();
+        eachMonth();
     }
 }
