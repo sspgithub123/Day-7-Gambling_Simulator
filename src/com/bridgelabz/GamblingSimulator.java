@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.io.PrintStream;
 import java.util.Random;
 
 public class GamblingSimulator {
@@ -98,6 +99,53 @@ public class GamblingSimulator {
 
     }
 
+    //UC6
+    public static PrintStream luckyUnluckyDay(){
+        int Stake = STAKE;
+        int month = 1;
+        int day = 1;
+        int UnluckyDay = 1;
+        int LuckyDay = 1;
+        int UnluckyMonth= 1;
+        int LuckyMonth = 1;
+        int LuckyDayMoney = STAKE;
+        int UnluckyDayMoney = STAKE;
+
+        while (month<=12) {
+            day = 1;
+            while(day<=30) {
+                Stake = STAKE;
+                Random rand = new Random();
+                int dailyGamePlayed = rand.nextInt(10);
+
+                for (int i = 0; i < dailyGamePlayed; i++) {
+
+                    int randcheck = (int)Math.floor(Math.random()*10) % 2;
+                    if (randcheck==BET)
+                        Stake = Stake + 1;
+                    else
+                        Stake = Stake - 1;
+                }
+
+                if(LuckyDayMoney<Stake){
+                    LuckyDay = day;
+                    LuckyMonth = month;
+                    LuckyDayMoney = Stake;
+                }
+
+                if(UnluckyDayMoney>Stake) {
+                    UnluckyDay = day;
+                    UnluckyMonth = month;
+                    UnluckyDayMoney = Stake;
+                }
+                day++;
+            }
+            month++;
+        }
+        System.out.println("Lucky Day "+LuckyDay+" in the month "+LuckyMonth+" Maximum money won is "+(LuckyDayMoney - Stake)+" $ ");
+        return System.out.printf("Unlucky Day "+UnluckyDay+" in the month "+UnluckyMonth+" Maximum  money lost is " +(Stake - UnluckyDayMoney)+" $ ");
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Gambling Simulator Game");
         System.out.println(STAKE + " " + BET);
@@ -106,5 +154,6 @@ public class GamblingSimulator {
         wonOrLost50Percent();
         twentyDays();
         eachMonth();
+        luckyUnluckyDay();
     }
 }
